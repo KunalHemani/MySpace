@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "821596339386",
+    "project_id": "mysp-final",
+    "storage_bucket": "mysp-final.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821596339386:android:b65564dc011e3e8a761683",
+        "android_client_info": {
+          "package_name": "com.example.myspace_final"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd_o1Mj9zXkpvKP20ZRkRWKaHxzoktnQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
