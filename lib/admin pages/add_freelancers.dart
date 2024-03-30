@@ -15,7 +15,7 @@ class AddFreelancing extends StatefulWidget {
 }
 
 class _AddFreelancingState extends State<AddFreelancing> {
-  final List<String> freelancingItems = ['Typing Work', 'Graphics Designers', 'Translator', 'Software Engineer'];
+  final List<String> freelancingItems = ['Programmer', 'Graphics Designers', 'Translator'];
   String? selectedCategory;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -52,7 +52,7 @@ class _AddFreelancingState extends State<AddFreelancing> {
         "Price": priceController.text,
         "Detail": detailController.text
       };
-      await DatabaseMethods().addFoodItem(addItem, selectedCategory!).then((value) {
+      await DatabaseMethods().addFreelanceItem(addItem, selectedCategory!).then((value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.orangeAccent,
           content: Text(

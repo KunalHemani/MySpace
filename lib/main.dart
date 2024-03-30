@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:myspace_final/pages/wallet.dart';
+import 'package:myspace_final/pages/onboard.dart';
+// import 'package:myspace_final/pages/others/onboard.dart';
 import 'package:myspace_final/widgets/app_constant.dart';
 import 'firebase_options.dart';
-import 'package:myspace_final/pages/onboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

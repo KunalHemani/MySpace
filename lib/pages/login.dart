@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,9 @@ import 'package:myspace_final/admin%20pages/admin_login.dart';
 import 'package:myspace_final/pages/bottom_nav.dart';
 import 'package:myspace_final/pages/forgotpassword.dart';
 import 'package:myspace_final/pages/home.dart';
+// import 'package:myspace_final/pages/others/forgotpassword.dart';
+import 'package:myspace_final/pages/show_category.dart';
+import 'package:myspace_final/pages/show_category.dart';
 import 'package:myspace_final/pages/signup.dart';
 import 'package:myspace_final/widgets/widget_support.dart';
 
@@ -37,24 +38,6 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e){
 
       showErrorMessage(e.code);
-
-      // if(e.code == 'user-not-found'){
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //     backgroundColor: Colors.grey,
-      //     content: Text(
-      //       'No user found for that email.',
-      //       style: TextStyle(fontSize: 20),
-      //     ),
-      //   ));
-      // } else if(e.code == 'wrong-password'){
-      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //     backgroundColor: Colors.grey,
-      //     content: Text(
-      //       'Wrong Password.',
-      //       style: TextStyle(fontSize: 20),
-      //     ),
-      //   ));
-      // }
     }
   }
 
@@ -187,9 +170,6 @@ class _LoginState extends State<Login> {
                                         email = useremailControoler.text;
                                         password = userpasswordControoler.text;
                                       });
-                                      // print(email);
-                                      // print("Hi");
-                                      // print(password);
                                       }
                                     userLogin();
                                   },

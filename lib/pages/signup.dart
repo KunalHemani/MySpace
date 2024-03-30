@@ -2,14 +2,16 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
-import "package:myspace_final/pages/bottom_nav.dart";
 import "package:myspace_final/pages/home.dart";
+import "package:myspace_final/pages/bottom_nav.dart";
 import "package:myspace_final/pages/login.dart";
+// import "package:myspace_final/pages/others/login.dart";
+// import "package:myspace_final/pages/others/show_category.dart";
+import "package:myspace_final/pages/show_category.dart";
 import "package:myspace_final/services/database.dart";
 import "package:myspace_final/services/shared_pref.dart";
 import "package:myspace_final/widgets/widget_support.dart";
 import "package:random_string/random_string.dart";
-import "package:shared_preferences/shared_preferences.dart";
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -45,7 +47,7 @@ class _SignUpState extends State<SignUp> {
         Map<String, dynamic> addUserInfo = {
           "Name" : nameController.text,
           "Email" : emailController.text,
-          "Wallet" : "0",
+          "wallet" : "0",
           "Id" : Id,
         };
         await DatabaseMethods().addUserDetails(addUserInfo, Id);
@@ -54,7 +56,7 @@ class _SignUpState extends State<SignUp> {
         await SharedPreferenceHelper().saveUserWallet('0');
         await SharedPreferenceHelper().saveUserId(Id);
 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNav()));
       } on FirebaseException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -128,9 +130,9 @@ class _SignUpState extends State<SignUp> {
                             email = emailController.text;
                             password = passwordController.text;
                             name = nameController.text;
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
                           });
                         }
-
                         registration();
                       },
                       child: Material(
@@ -207,6 +209,7 @@ class _SignUpState extends State<SignUp> {
                                   GestureDetector(
                                     onTap: () async {
                                       if (_formKey.currentState!.validate()) {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
                                         setState(() {
                                           email = emailController.text;
                                           name = nameController.text;

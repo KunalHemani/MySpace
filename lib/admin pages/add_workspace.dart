@@ -7,14 +7,14 @@ import 'package:myspace_final/services/database.dart';
 import 'package:myspace_final/widgets/widget_support.dart';
 import 'package:random_string/random_string.dart';
 
-class AddFood extends StatefulWidget {
-  const AddFood({Key? key}) : super(key: key);
+class Addworkspace extends StatefulWidget {
+  const Addworkspace({Key? key}) : super(key: key);
 
   @override
-  State<AddFood> createState() => _AddFoodState();
+  State<Addworkspace> createState() => _AddworkspaceState();
 }
 
-class _AddFoodState extends State<AddFood> {
+class _AddworkspaceState extends State<Addworkspace> {
   final List<String> workspaceItems = ['Below 299', 'Below 399', 'Below 499'];
   String? selectedCategory;
   final TextEditingController nameController = TextEditingController();
@@ -52,11 +52,11 @@ class _AddFoodState extends State<AddFood> {
         "Price": priceController.text,
         "Detail": detailController.text
       };
-      await DatabaseMethods().addFoodItem(addItem, selectedCategory!).then((value) {
+      await DatabaseMethods().addWorkspaceItem(addItem, selectedCategory!).then((value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Colors.green,
           content: Text(
-            "Workspace has been added Successfully",
+            "Desk has been added Successfully",
             style: TextStyle(fontSize: 18.0),
           ),
         ));

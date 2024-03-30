@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,25 @@ class _ProfileState extends State<Profile> {
     name = await SharedPreferenceHelper().getUserName();
     email = await SharedPreferenceHelper().getUserEmail();
     setState(() {});
+
+    // try {
+    //   // Assuming your Firestore collection is named "users"
+    //   QuerySnapshot<Map<String, dynamic>> querySnapshot =
+    //   await FirebaseFirestore.instance.collection('users').get();
+    //
+    //   if (querySnapshot.docs.isNotEmpty) {
+    //     // Assuming there is only one document in the "users" collection
+    //     // You may need to modify this depending on your data structure
+    //     var userData = querySnapshot.docs.first.data();
+    //     setState(() {
+    //       name = userData['Name'];
+    //       email = userData['Email'];
+    //
+    //     });
+    //   }
+    // } catch (e) {
+    //   print("Error fetching data: $e");
+    // }
   }
 
   onthisload() async {
@@ -65,7 +85,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: name == null
+        child:
+        name == null
             ? CircularProgressIndicator()
             : Container(
                 child: Column(
@@ -133,7 +154,7 @@ class _ProfileState extends State<Profile> {
                                     color: Colors.white,
                                     fontSize: 23.0,
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins'),
+                                ),
                               ),
                             ],
                           ),

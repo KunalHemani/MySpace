@@ -2,17 +2,46 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myspace_final/pages/order.dart';
+import 'package:myspace_final/services/database.dart';
+import 'package:myspace_final/services/shared_pref.dart';
 import 'package:myspace_final/widgets/widget_support.dart';
 
 class Details extends StatefulWidget {
-  const Details({super.key});
+  String image, name, detail, price;
+  Details({super.key,
+    required this.image,
+    required this.name,
+    required this.detail,
+    required this.price});
 
   @override
   State<Details> createState() => _DetailsState();
 }
 
 class _DetailsState extends State<Details> {
-  int a = 1;
+  int a = 1, total = 0;
+  String? id;
+
+  getthesharedpref() async {
+    id = await SharedPreferenceHelper().getUserId();
+    setState(() {
+
+    });
+  }
+
+  ontheload() async {
+    await getthesharedpref();
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    ontheload();
+    total = int.parse(widget.price);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +62,19 @@ class _DetailsState extends State<Details> {
                 ),
               ),
               SizedBox(height: 20),
-              Image.asset(
-                'assets/images/Desk_and_chair_image_of_office.jpg',
+              Image.network( widget.image,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 2.5,
                 fit: BoxFit.fill,
               ),
               SizedBox(height: 15),
               Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Desk on rent', style: AppWidget.boldTextFieldStyle()),
-                      Text('Desk', style: AppWidget.headerTextFieldStyle()),
+                      Text(widget.name, style: AppWidget.boldTextFieldStyle()),
                     ],
                   ),
                   Spacer(),
@@ -55,6 +82,7 @@ class _DetailsState extends State<Details> {
                     onTap: () {
                       if (a > 1) {
                         --a;
+                        total = total - int.parse(widget.price);
                       }
 
                       setState(() {});
@@ -78,8 +106,10 @@ class _DetailsState extends State<Details> {
                   SizedBox(width: 20.0),
                   GestureDetector(
                     onTap: () {
-                      ++a;
-
+                      if (a < 10) {
+                        ++a;
+                        total = total + int.parse(widget.price);
+                      };
                       setState(() {});
                     },
                     child: Container(
@@ -96,8 +126,7 @@ class _DetailsState extends State<Details> {
                 ],
               ),
               SizedBox(height: 20.0),
-              Text(
-                'In a desk-on-rent setup, tenants typically pay a fee for access to a desk or workstation within a shared office space. This fee may cover utilities, internet access.',
+              Text(widget.detail,
                 style: AppWidget.lightTextFieldStyle(),
                 maxLines: 4,
               ),
@@ -121,6 +150,16 @@ class _DetailsState extends State<Details> {
                 ],
               ),
               Spacer(),
+              Center(
+                child: Text(
+                  'Your total booking time : ' + a.toString() + ' Hour(s)',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(bottom: 40.0),
                 child: Row(
@@ -136,50 +175,87 @@ class _DetailsState extends State<Details> {
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          '\₹ 299',
+                          '\₹' + total.toString(),
                           style: AppWidget.headerTextFieldStyle(),
                         ),
                       ],
                     ),
                     SizedBox(
-                      width: 100,
+                      width: 75,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width/7,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Order()));
+                      },
                       child: Container(
-                        padding: EdgeInsets.all(5.0),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context)=> Order()));
-                                },
-                                child: Icon(
-                                  CupertinoIcons.shopping_cart,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
-                              ),
+                        width: MediaQuery.of(context).size.width/7,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(5.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Icon(
+                              CupertinoIcons.bag_fill,
+                              color: Colors.white,
+                              size: 25,
                             ),
-                                                                                                                                                                                                                                                                SizedBox(
-                                                                                                                                                                                                                                                                  width: 10.0,
-                                                                                                                                                                                                                                                                ),
-                          ],
+                          ),
                         ),
                       ),
-                    )
+                    ),
+
+                    SizedBox(width: 5,),
+
+                    GestureDetector(
+                      onTap: () async {
+                        Map<String, dynamic> addWorkspacetoCart = {
+                          "Name": widget.name,
+                          "Hour": a.toString(),
+                          "Total": total.toString(),
+                          "Image": widget.image
+                        };
+                      await DatabaseMethods().addWorkspaceItemtoCart(
+                      addWorkspacetoCart, id!);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.black,
+                        content: Text(
+                          'Desk added to Cart.',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      );
+                    },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/7,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(5.0),
+                          child: Container(
+                            padding: EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Icon(
+                              CupertinoIcons.shopping_cart,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )

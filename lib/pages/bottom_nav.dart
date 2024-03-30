@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:myspace_final/pages/Freelancing/fhome.dart';
 import 'package:myspace_final/pages/home.dart';
 import 'package:myspace_final/pages/order.dart';
 import 'package:myspace_final/pages/profile.dart';
@@ -21,6 +22,7 @@ class _BottomNavState extends State<BottomNav> {
   late Home homepage;
   late Order order;
   late Wallet wallet;
+  late FHomePage freelancepage;
   late Profile profile;
 
 
@@ -29,8 +31,9 @@ class _BottomNavState extends State<BottomNav> {
     homepage = Home();
     order = Order();
     wallet = Wallet();
+    freelancepage = FHomePage();
     profile = Profile();
-    pages = [homepage, order, wallet, profile];
+    pages = [homepage, order, wallet, freelancepage, profile];
     // pages = [homepage, order, profile];
 
     super.initState();
@@ -40,7 +43,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-          height: 65,
+          height: 60,
           backgroundColor: Colors.white,
           color: Colors.black,
           animationDuration: Duration(
@@ -55,6 +58,7 @@ class _BottomNavState extends State<BottomNav> {
             Icon(Icons.home_outlined, color: Colors.white,),
             Icon(Icons.shopping_cart_rounded, color: Colors.white,),
             Icon(Icons.wallet, color: Colors.white,),
+            Icon(Icons.laptop_mac, color: Colors.white,),
             Icon(Icons.person, color: Colors.white,),
           ],
       ),

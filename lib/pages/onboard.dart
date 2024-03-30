@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myspace_final/pages/signup.dart';
+// import 'package:myspace_final/pages/others/signup.dart';
 import 'package:myspace_final/widgets/content_model.dart';
 import 'package:myspace_final/widgets/widget_support.dart';
 

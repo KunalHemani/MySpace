@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// import 'package:myspace_final/pages/others/signup.dart';
 import 'package:myspace_final/pages/signup.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -21,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
-            "Password Reset Email has been sent !",
+            "Password Reset Email has been sent!",
             style: TextStyle(fontSize: 18.0),
           )));
     } on FirebaseAuthException catch (e) {

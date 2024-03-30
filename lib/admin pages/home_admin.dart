@@ -35,7 +35,7 @@ class _HomeAdminState extends State<HomeAdmin> {
             SizedBox(height: 50.0,),
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AddFood()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Addworkspace()));
               },
               child: Material(
                 elevation: 10.0,
