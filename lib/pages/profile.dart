@@ -21,53 +21,91 @@ class _ProfileState extends State<Profile> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
 
+
   Future getImage() async {
     var image = await _picker.pickImage(source: ImageSource.gallery);
 
-    selectedImage = File(image!.path);
-    setState(() {
-      uploadItem();
-    });
-  }
-
-  uploadItem() async {
-    if (selectedImage != null) {
-      String addId = randomAlphaNumeric(10);
-
-      Reference firebaseStorageRef =
-          FirebaseStorage.instance.ref().child("blogImages").child(addId);
-      final UploadTask task = firebaseStorageRef.putFile(selectedImage!);
-
-      var downloadUrl = await (await task).ref.getDownloadURL();
-      await SharedPreferenceHelper().saveUserProfile(downloadUrl);
-      setState(() {});
+    if (image != null) {
+      selectedImage = File(image.path);
+      uploadItem(selectedImage!); // Pass the selected image to uploadItem()
     }
   }
 
+  uploadItem(File imageFile) async {
+    try {
+      String addId = randomAlphaNumeric(10);
+
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child("blogImages").child(addId);
+      final UploadTask uploadTask = firebaseStorageRef.putFile(imageFile);
+
+      // Wait for the upload to complete
+      await uploadTask.whenComplete(() async {
+        var downloadUrl = await firebaseStorageRef.getDownloadURL();
+        if (downloadUrl != null) {
+          // Save the download URL to SharedPreference
+          await SharedPreferenceHelper().saveUserProfile(downloadUrl);
+          setState(() {
+            // Update the UI if necessary
+          });
+        } else {
+          // Handle the case where download URL is null
+          print("Download URL is null");
+        }
+      });
+    } catch (e) {
+      // Handle any errors that occur during the upload process
+      print("Error uploading image: $e");
+    }
+  }
+
+
+  // Future getImage() async {
+  //   var image = await _picker.pickImage(source: ImageSource.gallery);
+  //
+  //   selectedImage = File(image!.path);
+  //   setState(() {
+  //     uploadItem();
+  //   });
+  // }
+  //
+  // uploadItem() async {
+  //   if (selectedImage != null) {
+  //     String addId = randomAlphaNumeric(10);
+  //
+  //     Reference firebaseStorageRef =
+  //         FirebaseStorage.instance.ref().child("blogImages").child(addId);
+  //     final UploadTask task = firebaseStorageRef.putFile(selectedImage!);
+  //
+  //     var downloadUrl = await (await task).ref.getDownloadURL();
+  //     await SharedPreferenceHelper().saveUserProfile(downloadUrl);
+  //     setState(() {});
+  //   }
+  // }
+
   getthesharedpref() async {
-    profile = await SharedPreferenceHelper().getUserProfile();
-    name = await SharedPreferenceHelper().getUserName();
-    email = await SharedPreferenceHelper().getUserEmail();
+    // profile = await SharedPreferenceHelper().getUserProfile();
+    // name = await SharedPreferenceHelper().getUserName();
+    // email = await SharedPreferenceHelper().getUserEmail();
     setState(() {});
 
-    // try {
-    //   // Assuming your Firestore collection is named "users"
-    //   QuerySnapshot<Map<String, dynamic>> querySnapshot =
-    //   await FirebaseFirestore.instance.collection('users').get();
-    //
-    //   if (querySnapshot.docs.isNotEmpty) {
-    //     // Assuming there is only one document in the "users" collection
-    //     // You may need to modify this depending on your data structure
-    //     var userData = querySnapshot.docs.first.data();
-    //     setState(() {
-    //       name = userData['Name'];
-    //       email = userData['Email'];
-    //
-    //     });
-    //   }
-    // } catch (e) {
-    //   print("Error fetching data: $e");
-    // }
+    try {
+      // Assuming your Firestore collection is named "users"
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance.collection('users').get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Assuming there is only one document in the "users" collection
+        // You may need to modify this depending on your data structure
+        var userData = querySnapshot.docs.first.data();
+        setState(() {
+          name = userData['Name'];
+          email = userData['Email'];
+
+        });
+      }
+    } catch (e) {
+      print("Error fetching data: $e");
+    }
   }
 
   onthisload() async {
@@ -103,7 +141,10 @@ class _ProfileState extends State<Profile> {
                               borderRadius: BorderRadius.vertical(
                                   bottom: Radius.elliptical(
                                       MediaQuery.of(context).size.width,
-                                      105.0))),
+                                      105.0
+                                  ),
+                              ),
+                          ),
                         ),
                         Center(
                           child: Container(

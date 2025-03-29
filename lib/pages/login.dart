@@ -68,13 +68,13 @@ class _LoginState extends State<Login> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height/2.5,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.black,
-                        Colors.black,
-                  ])
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.black,
+                          Colors.black,
+                        ])
                 ),
               ),
               Container(
@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
                 ),
                 //child: Text('hii'),
               ),
@@ -92,8 +92,10 @@ class _LoginState extends State<Login> {
                 child: Column(
                   children: [
                     Center(
-                        child: Image.asset("assets/images/mylogo.jpg",
-                          height: 155, width: MediaQuery.of(context).size.width/1.15, fit: BoxFit.cover,)
+                        child: Image.asset("assets/images/logo.jpg",
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.cover,)
                     ),
                     SizedBox(height: 30.0),
 
@@ -101,12 +103,12 @@ class _LoginState extends State<Login> {
                       elevation: 5.0,
                       borderRadius: BorderRadius.circular(20),
                       child: Container(
-                        padding: EdgeInsets.only(left:20 , right: 20),
+                          padding: EdgeInsets.only(left:20 , right: 20),
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height/2,
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)
                           ),
 
                           child: Form(
@@ -144,9 +146,9 @@ class _LoginState extends State<Login> {
 
                                   obscureText: true,
                                   decoration: InputDecoration(
-                                      hintText: 'Password',
-                                      hintStyle: AppWidget.boldTextFieldStyle(),
-                                      prefixIcon: Icon(Icons.lock),
+                                    hintText: 'Password',
+                                    hintStyle: AppWidget.boldTextFieldStyle(),
+                                    prefixIcon: Icon(Icons.lock),
                                   ),
                                 ),
 
@@ -159,7 +161,12 @@ class _LoginState extends State<Login> {
                                   child: Container(
                                     alignment: Alignment.topRight,
                                     child: Text("Forgot Password?",
-                                    style: AppWidget.boldTextFieldStyle(),),
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 50,),
@@ -170,7 +177,7 @@ class _LoginState extends State<Login> {
                                         email = useremailControoler.text;
                                         password = userpasswordControoler.text;
                                       });
-                                      }
+                                    }
                                     userLogin();
                                   },
                                   child: Material(
@@ -179,16 +186,16 @@ class _LoginState extends State<Login> {
                                       padding: EdgeInsets.symmetric(vertical: 8),
                                       width: 150,
                                       decoration: BoxDecoration(color: Colors.black,
-                                      borderRadius: BorderRadius.circular(25)),
+                                          borderRadius: BorderRadius.circular(25)),
                                       child: Center(
-                                          child: Text('LOGIN', style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),),
-                                        ),
+                                        child: Text('LOGIN', style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),),
                                       ),
                                     ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -202,7 +209,7 @@ class _LoginState extends State<Login> {
                       children: [
                         Text("Don't have an account?",
                           style: TextStyle(
-                            fontSize: 17
+                              fontSize: 17
                           ),
                         ),
 
@@ -217,7 +224,7 @@ class _LoginState extends State<Login> {
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.blue,
-                              fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.bold
                             ),
                           ),
                         ),

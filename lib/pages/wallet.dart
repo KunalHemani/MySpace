@@ -18,6 +18,7 @@ class Wallet extends StatefulWidget {
 class _WalletState extends State<Wallet> {
   String? wallet, id;
   int? add;
+  String? total;
   TextEditingController amountcontroller = new TextEditingController();
 
   getthesharedpref() async {
@@ -26,6 +27,7 @@ class _WalletState extends State<Wallet> {
     setState(() {});
   }
 
+  // Fetch user wallet balance on screen load
   ontheload() async {
     await getthesharedpref();
     setState(() {});
@@ -33,9 +35,36 @@ class _WalletState extends State<Wallet> {
 
   @override
   void initState() {
+    wallet = ''; // Initialize wallet balance
     ontheload();
     super.initState();
   }
+
+  // getthesharedpref() async {
+  //   wallet = await SharedPreferenceHelper().getUserWallet();
+  //   id = await SharedPreferenceHelper().getUserId();
+  //   setState(() {});
+  // }
+  //
+  // ontheload() async {
+  //   await getthesharedpref();
+  //   setState(() {});
+  // }
+  //
+  //
+  // @override
+  // void initState() {
+  //   wallet = ''; // or wallet = '0';
+  //   ontheload();
+  //   super.initState();
+  // }
+
+
+  // @override
+  // void initState() {
+  //   ontheload();
+  //   super.initState();
+  // }
 
   Map<String, dynamic>? paymentIntent;
 
@@ -91,9 +120,10 @@ class _WalletState extends State<Wallet> {
                         height: 5.0,
                       ),
                       Text(
+                        // total,
+                        // "\₹$wallet",
                         // "\₹" + wallet!,
                         "\₹ 100",
-                        // "\$" + wallet!,
                         style: AppWidget.boldTextFieldStyle(),
                       )
                     ],
@@ -120,6 +150,7 @@ class _WalletState extends State<Wallet> {
                 GestureDetector(
                   onTap: () {
                     makePayment('100', context);
+                    // total = total + 100;
                   },
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -210,6 +241,33 @@ class _WalletState extends State<Wallet> {
       ),
     );
   }
+
+
+  // Future<void> makePayment(String amount, BuildContext context) async {
+  //   try {
+  //     // Your existing code for creating payment intent
+  //
+  //     // Simulate a successful payment
+  //     // In a real application, you would handle the actual payment process here
+  //     // For demonstration purposes, we're simply adding ₹100 to the wallet
+  //     addMoneyToWallet('100');
+  //
+  //     // Show a success message
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Payment successful. ₹100 added to wallet.'),
+  //       ),
+  //     );
+  //
+  //     // Clear payment intent and update UI
+  //     paymentIntent = null;
+  //     setState(() {});
+  //   } catch (e, s) {
+  //     print('exception:$e$s');
+  //     // Handle any errors
+  //   }
+  // }
+
 
   Future<void> makePayment(String amount, BuildContext context) async {
     try {
@@ -397,4 +455,22 @@ class _WalletState extends State<Wallet> {
             ),
       ),
   );
+
+  // Future<void> addMoneyToWallet(String amount) async {
+  //   try {
+  //     // Update the wallet balance locally
+  //     wallet = (int.parse(wallet ?? '0') + int.parse(amount)).toString();
+  //     // Update the wallet balance in Shared Preferences
+  //     await SharedPreferenceHelper().saveUserWallet(wallet!);
+  //     // Update the wallet balance in Firestore or your backend database
+  //     await DatabaseMethods().UpdateUserWallet(id!, wallet!);
+  //     // Update the state to reflect the changes
+  //     setState(() {});
+  //   } catch (e) {
+  //     // Handle any errors
+  //     print('Error adding money to wallet: $e');
+  //   }
+  // }
+
+
 }

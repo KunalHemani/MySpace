@@ -33,9 +33,10 @@ class _ShowCategoryPageState extends State<ShowCategoryPage> {
         actions: [
           GestureDetector(
             onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(
-                      builder: (context) => Login()));
+              FirebaseAuth.instance.signOut();
+              // Navigator.push(context,
+              //     MaterialPageRoute(
+              //         builder: (context) => Login()));
             },
             child: Icon(
                 Icons.logout,

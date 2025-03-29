@@ -115,12 +115,13 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: [
                     Center(
-                        child: Image.asset(
-                      "assets/images/mylogo.jpg",
-                      height: 135,
-                      width: MediaQuery.of(context).size.width / 1.2,
+                      child: Image.asset("assets/images/logo.jpg",
+                      height: 200,
+                      width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
-                    )),
+                      ),
+                    ),
+
                     SizedBox(height: 30.0),
 
                     GestureDetector(
@@ -172,7 +173,7 @@ class _SignUpState extends State<SignUp> {
                                         prefixIcon: Icon(Icons.person)),
                                   ),
                                   SizedBox(
-                                    height: 30,
+                                    height: 20,
                                   ),
                                   TextFormField(
                                     controller: emailController,

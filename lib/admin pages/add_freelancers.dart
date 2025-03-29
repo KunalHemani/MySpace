@@ -97,12 +97,11 @@ class _AddFreelancingState extends State<AddFreelancing> {
               onTap: getImage,
               child: selectedImage == null
                   ? Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 1.5),
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1.5),
+                    borderRadius: BorderRadius.circular(20),),
                 child: Icon(
                   Icons.camera_alt_outlined,
                   color: Colors.black,
@@ -150,28 +149,28 @@ class _AddFreelancingState extends State<AddFreelancing> {
               ),
             ),
             SizedBox(height: 20.0),
-            DropdownButtonFormField<String>(
-              value: selectedCategory,
-              decoration: InputDecoration(
-                labelText: "Designation Category",
-                border: OutlineInputBorder(),
-              ),
-              items: freelancingItems
-                  .map((item) => DropdownMenuItem<String>(
-                value: item,
-                child: Text(
-                  item,
-                  style: TextStyle(fontSize: 18.0),
-                ),
-              ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectedCategory = value;
-                });
-              },
-            ),
-            SizedBox(height: 30.0),
+            // DropdownButtonFormField<String>(
+            //   value: selectedCategory,
+            //   decoration: InputDecoration(
+            //     labelText: "Designation Category",
+            //     border: OutlineInputBorder(),
+            //   ),
+            //   items: freelancingItems
+            //       .map((item) => DropdownMenuItem<String>(
+            //     value: item,
+            //     child: Text(
+            //       item,
+            //       style: TextStyle(fontSize: 18.0),
+            //     ),
+            //   ))
+            //       .toList(),
+            //   onChanged: (value) {
+            //     setState(() {
+            //       selectedCategory = value;
+            //     });
+            //   },
+            // ),
+            // SizedBox(height: 30.0),
             ElevatedButton(
               onPressed: uploadItem,
               child: Text("Add"),

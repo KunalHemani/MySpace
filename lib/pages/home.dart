@@ -199,27 +199,6 @@ class _HomeState extends State<Home> {
                       'NAMASTE!!  🙏',
                       style: AppWidget.boldTextFieldStyle(),
                     ),
-
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context) => Login()));
-                      },
-                      child: Icon(
-                          Icons.logout,
-                          color: Colors.black,
-                      ),
-                    ),
-                    // GestureDetector(
-                    //   onTap: (){},
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(right: 20.0),
-                    //     child: Icon(
-                    //       CupertinoIcons.cart_fill,
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
                 SizedBox(height: 15),

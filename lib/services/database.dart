@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseMethods{
@@ -58,6 +57,8 @@ class DatabaseMethods{
         .doc(id).collection("Cart")
         .add(userInfoMap);
   }
+
+
 
   Future<Stream<QuerySnapshot>> getFreelanceCart(String id) async {
     return await FirebaseFirestore.instance.collection("users").doc(id).collection("Cart").snapshots();

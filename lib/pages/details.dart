@@ -221,6 +221,7 @@ class _DetailsState extends State<Details> {
                           "Total": total.toString(),
                           "Image": widget.image
                         };
+                        print("Added desk");
                       await DatabaseMethods().addWorkspaceItemtoCart(
                       addWorkspacetoCart, id!);
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -27,6 +27,8 @@ class _FHomePageState extends State<FHomePage> {
 
   ontheLoad() async {
     freelanceStream = await DatabaseMethods().getWorkspaceItem("Programmer");
+    // freelanceStream = await DatabaseMethods().getWorkspaceItem("Graphics Designer");
+    // freelanceStream = await DatabaseMethods().getWorkspaceItem("Translator");
     setState(() {});
   }
 
@@ -35,69 +37,6 @@ class _FHomePageState extends State<FHomePage> {
     ontheLoad();
     super.initState();
   }
-
-  // Widget allItems() {
-  //   return StreamBuilder(
-  //       stream: freelanceStream,
-  //       builder: (context, AsyncSnapshot snapshot) {
-  //         return snapshot.hasData
-  //             ? ListView.builder(
-  //             padding: EdgeInsets.zero,
-  //             itemCount: snapshot.data.docs.length,
-  //             shrinkWrap: true,
-  //             scrollDirection: Axis.horizontal,
-  //             itemBuilder: (context, index) {
-  //               DocumentSnapshot ds = snapshot.data.docs[index];
-  //               return GestureDetector(
-  //                 onTap: () {
-  //                   Navigator.push(context,
-  //                       MaterialPageRoute(builder: (context) => Details(
-  //                         detail: ds["Detail"], name: ds["Name"], price: ds["Price"], image: ds["Image"],)));
-  //                 },
-  //                 child: Container(
-  //                   margin: EdgeInsets.all(5.0),
-  //                   child: Material(
-  //                     elevation: 10.0,
-  //                     borderRadius: BorderRadius.circular(20),
-  //                     child: Container(
-  //                       padding: EdgeInsets.all(14),
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           ClipRRect(
-  //                             borderRadius: BorderRadius.circular(20),
-  //                             child: Image.network(
-  //                               ds["Image"],
-  //                               height: 125,
-  //                               width: 125,
-  //                               fit: BoxFit.cover,
-  //                             ),
-  //                           ),
-  //                           SizedBox(height: 5),
-  //                           Text(
-  //                             ds["Name"],
-  //                             style: AppWidget.boldTextFieldStyle(),
-  //                           ),
-  //                           SizedBox(height: 5),
-  //                           Text(
-  //                             ds["Detail"],
-  //                             style: AppWidget.semiBoldTextFieldStyle(),
-  //                           ),
-  //                           SizedBox(height: 5),
-  //                           Text(
-  //                             "\₹" + ds["Price"],
-  //                             style: AppWidget.boldTextFieldStyle(),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               );
-  //             })
-  //             : CircularProgressIndicator();
-  //       });
-  // }
 
   Widget allItemsVertically() {
     return StreamBuilder(
@@ -165,8 +104,9 @@ class _FHomePageState extends State<FHomePage> {
                                     child: Text(
                                       "\₹" + ds["Price"],
                                       style: AppWidget.boldTextFieldStyle(),
-                                    )
+                                    ),
                                 ),
+                                SizedBox(height: 10,)
                               ],
                             )
                           ],
@@ -182,11 +122,6 @@ class _FHomePageState extends State<FHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    void signUserOut() {
-      FirebaseAuth.instance.signOut();
-    }
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -194,36 +129,6 @@ class _FHomePageState extends State<FHomePage> {
             margin: EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // Text(
-                    //   'NAMASTE!!  🙏',
-                    //   style: AppWidget.boldTextFieldStyle(),
-                    // ),
-
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(
-                                builder: (context) => Login()));
-                      },
-                      child: Icon(
-                        Icons.logout,
-                        color: Colors.black,
-                      ),
-                    ),
-                    // GestureDetector(
-                    //   onTap: (){},
-                    //   child: Container(
-                    //     margin: EdgeInsets.only(right: 20.0),
-                    //     child: Icon(
-                    //       CupertinoIcons.cart_fill,
-                    //     ),
-                    //   ),
-                    // )
-                  ],
-                ),
                 SizedBox(height: 15),
                 Text(
                   'Freelancer\'s Page',
@@ -232,15 +137,13 @@ class _FHomePageState extends State<FHomePage> {
                 SizedBox(height: 10),
                 Container(
                   // margin: EdgeInsets.only(right: 10.0),
-                  child: showItem(),
+                  // child: showItem(),
                 ),
+
                 SizedBox(height: 10),
 
-                // Container(height: 270,
-                //     child: allItems()
-                // ),
-
                 SizedBox(height: 15),
+
                 Container(
                     height: 600,
                     child: allItemsVertically()),
@@ -273,11 +176,6 @@ class _FHomePageState extends State<FHomePage> {
                   color: below_twoa ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(10)),
               padding: EdgeInsets.all(8.0),
-              // child: Image.asset('assets/images/programmer.png',
-              //     height: 50,
-              //     width: 50,
-              //     fit: BoxFit.cover,
-              //     color: below_twoa ? Colors.white : Colors.black),
               child: Text(
                 'Programmer',
                 style: TextStyle(
@@ -287,13 +185,14 @@ class _FHomePageState extends State<FHomePage> {
             ),
           ),
         ),
+
         GestureDetector(
           onTap: () async {
             below_twoa = false;
             below_threea = true;
             below_foura = false;
             freelanceStream = await DatabaseMethods().
-            getFreelanceItem("GD");
+            getFreelanceItem("Graphics Designer");
             setState(() {});
           },
           child: Material(
@@ -304,11 +203,7 @@ class _FHomePageState extends State<FHomePage> {
                   color: below_threea ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(10)),
               padding: EdgeInsets.all(8.0),
-              // child: Image.asset('assets/images/gd.png',
-              //     height: 50,
-              //     width: 50,
-              //     fit: BoxFit.cover,
-              //     color: below_threea ? Colors.white : Colors.black),
+
               child: Text(
                 'Graphics Designer',
                 style: TextStyle(
@@ -324,7 +219,7 @@ class _FHomePageState extends State<FHomePage> {
             below_threea = false;
             below_foura = true;
             freelanceStream = await DatabaseMethods().
-            getFreelanceItem("Trans");
+            getFreelanceItem("Translator");
             setState(() {});
           },
           child: Material(

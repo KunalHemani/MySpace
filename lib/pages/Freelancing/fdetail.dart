@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:myspace_final/services/database.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myspace_final/services/shared_pref.dart';
 import 'package:myspace_final/widgets/widget_support.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FDetailsPage extends StatefulWidget {
   String image, name, detail, price;
@@ -20,6 +21,8 @@ class FDetailsPage extends StatefulWidget {
 class _FDetailsPageState extends State<FDetailsPage> {
   int a = 1, total = 0;
   String? id;
+
+  final Uri whatsApp = Uri.parse("https://wa.me/9428745235");
 
   getthesharedpref() async {
     id = await SharedPreferenceHelper().getUserId();
@@ -76,92 +79,28 @@ class _FDetailsPageState extends State<FDetailsPage> {
                       Text(widget.name, style: AppWidget.boldTextFieldStyle()),
                     ],
                   ),
-                  // Spacer(),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     if (a > 1) {
-                  //       --a;
-                  //       total = total - int.parse(widget.price);
-                  //     }
-                  //
-                  //     setState(() {});
-                  //   },
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.black,
-                  //       borderRadius: BorderRadius.circular(8),
-                  //     ),
-                  //     child: Icon(
-                  //       Icons.remove,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(width: 20.0),
-                  // Text(
-                  //   a.toString(),
-                  //   style: AppWidget.boldTextFieldStyle(),
-                  // ),
-                  // SizedBox(width: 20.0),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     if (a < 10) {
-                  //       ++a;
-                  //       total = total + int.parse(widget.price);
-                  //     };
-                  //     setState(() {});
-                  //   },
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.black,
-                  //       borderRadius: BorderRadius.circular(8),
-                  //     ),
-                  //     child: Icon(
-                  //       Icons.add,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  // ),
+                  GestureDetector(
+                    onTap: () {
+                      launchUrl(whatsApp);
+                    },
+                      child: Icon(FontAwesomeIcons.whatsapp,
+                      size: 30,
+                      color: Colors.green,),
+                  ),
                 ],
               ),
               SizedBox(height: 20.0),
+
               Text(widget.detail,
                 style: AppWidget.lightTextFieldStyle(),
                 maxLines: 4,
               ),
-              // SizedBox(height: 20.0),
-              // Row(
-              //   children: [
-              //     Text(
-              //       'Min. Booking Time',
-              //       style: AppWidget.boldTextFieldStyle(),
-              //     ),
-              //     SizedBox(width: 10.0),
-              //     Icon(
-              //       Icons.alarm,
-              //       color: Colors.black54,
-              //     ),
-              //     SizedBox(width: 5.0),
-              //     Text(
-              //       '1 Hour',
-              //       style: AppWidget.semiBoldTextFieldStyle(),
-              //     ),
-              //   ],
-              // ),
               Spacer(),
-              // Center(
-              //   child: Text(
-              //     'Your total booking time : ' + a.toString() + ' Hour(s)',
-              //     style: TextStyle(
-              //         color: Colors.black,
-              //         fontSize: 14,
-              //         fontWeight: FontWeight.bold
-              //     ),
-              //   ),
-              // ),
+
               Padding(
                 padding: EdgeInsets.only(bottom: 40.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,34 +118,11 @@ class _FDetailsPageState extends State<FDetailsPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      width: 80,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        Map<String, dynamic> addWorkspacetoCart = {
-                          "Name": widget.name,
-                          "Hour": a.toString(),
-                          "Total": total.toString(),
-                          "Image": widget.image
-                        };
-                        await DatabaseMethods().addWorkspaceItemtoCart(
-                            addWorkspacetoCart, id!);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.black,
-                            content: Text(
-                              'Desk added to Cart.',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width/3.5,
-                        height: 40,
+                      Container(
+                        width: MediaQuery.of(context).size.width/6,
+                        height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: Colors.blueAccent,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Container(
@@ -214,34 +130,34 @@ class _FDetailsPageState extends State<FDetailsPage> {
                           child: Container(
                             padding: EdgeInsets.all(3.0),
                             decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(8)),
-                            // child: Icon(
-                            //   CupertinoIcons.shopping_cart,
-                            //   color: Colors.white,
-                            //   size: 25,
-                            // ),
-
-                            child: GestureDetector(
-                              onTap: (){
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(content: Text('Successfully Applied!')));
-                              },
-                              child: Text(
-                                'Apply Now',
-                                style: TextStyle(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(8)
+                            ),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  final Uri url = Uri(
+                                    scheme: 'tel',
+                                    path: "7383920612",
+                                  );
+                                  if(await canLaunchUrl(url)){
+                                    await launchUrl(url);
+                                  }
+                                  else {
+                                    print("Cannot launch");
+                                  }
+                                },
+                                child: Icon(
+                                  Icons.call,
+                                  size: 35,
                                   color: Colors.white,
-                                  fontSize: 15
                                 ),
                               ),
                             ),
                           ),
-                        ),
                       ),
-                    )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
